@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Upload & Run on ESP32",
+      "type": "shell",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "\"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 fs cp \"${file}\" :main.py && \"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 reset && \"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 repl"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

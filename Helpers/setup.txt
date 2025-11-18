@@ -1,0 +1,73 @@
+
+tools for writing setup-
+https://docs.google.com/document/d/1zQjFpyBMEZP6hv7yXWIeoUBg9ravYaIlvraZOexU0QE/edit?tab=t.0
+
+https://chatgpt.com/share/691b9439-4d48-8001-a155-aa618ea96c50
+
+important tips:
+"""
+tasks do not work if they aren't in one level(in one folder) from the workspace.
+
+"""
+
+1. if you change computer: (already did 2(in this computer) and 3(doesn't matter in which computer))
+    1. -make a keyboard shorcut
+        a. press: (ctrl shift p) paste: 
+            workbench.action.openGlobalKeybindingsFile
+        b. paste that in there:
+            [
+            {
+                "key": "f10",
+                "command": "workbench.action.tasks.runTask",
+                "args": "Upload & Run on ESP32"
+            }
+            ]
+    2. go to "generate_tasks.py" file in the DOK
+        a. press (win x) and  go to device manager. 
+            go to ports and check in which port the esp is connected.(for example: "COM6")
+        b. in "generate_tasks.py" change the port variable to the right port.
+        c. run "generate_tasks.py" 
+
+
+
+#this is setup for a completly new computer (2 and 3)
+
+2. How to download to computer
+    a. run the command in (cmd) to install esptool
+        pip install esptool
+    b. install mpremote. run in (cmd) the command
+        pip install mpremote
+    c. add a mpremote path to the computer:
+        win -> environment variables -> (double press) path -> new [paste there the text in the following line]
+        change(username, and disk if needed (C:)) 
+            C:\Users\[username]\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts
+        save. press-
+            OK -> OK -> OK
+        check if it is working(paste in CMD)
+            mpremote --help
+
+3. How to burn the esp32D code into him
+    a. delete the esp32d memory [change the port into the right one]
+        a. press (win x) and  go to device manager. 
+            go to ports and check in which port the esp is connected.(for example: "COM6")
+        b. in the following code, change the (port) into the right one
+            python3 -m esptool --chip esp32 --port (port) erase_flash
+    b. downloadthe micropython code
+        go to the website:
+            https://micropython.org/download/ESP32_GENERIC/
+                go to download
+                    go to Firmware
+                        go to Releases
+                            download the link:
+                                v1.26.1 (2025-09-11) .bin
+    c. upload the micropython to the esp32D 
+        a. change the (port) and the (user), then run in (cmd)
+            python3 -m esptool --chip esp32 --port (PORT) --baud 460800 write-flash -z 0x1000 "C:\Users\(user)\Downloads\ESP32_GENERIC-20250911-v1.26.1.bin"
+        b. check if it is working [change (port), then run in (cmd)]
+            mpremote connect (port) repl
+                print("Hello from ESP32!")
+
+
+
+
+
