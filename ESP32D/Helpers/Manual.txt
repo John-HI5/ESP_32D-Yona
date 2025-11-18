@@ -1,0 +1,72 @@
+"""
+===============================
+MicroPython ESP32 Pin Cheat Sheet
+===============================
+up\down - default
+
+1️⃣ Pin Modes:
+--------------- the esp32 isthe subject. what it does to the esp32 - input(inputs information into the esp32) or output(the esp32 gives him information, high or low or...)
+Pin.IN             # Input mode
+Pin.OUT            # Output mode
+Pin.OPEN_DRAIN     # Open-drain output (can only pull low)
+Pin.ALT            # Alternate function (hardware-specific, e.g., UART, SPI)
+Pin.ALT_OPEN_DRAIN # Alternate function open-drain
+
+2️⃣ Pull Resistors:
+------------------
+Pin.PULL_UP   # Internal pull-up resistor (defaults HIGH)
+Pin.PULL_DOWN # Internal pull-down resistor (defaults LOW)
+None          # No pull resistor (floating)
+
+3️⃣ Creating a Pin:
+------------------
+from machine import Pin
+
+# Input pin with pull-up
+button = Pin(4, Pin.IN, Pin.PULL_UP)
+
+# Output pin
+led = Pin(5, Pin.OUT)
+
+# Open-drain output example
+open_drain_pin = Pin(12, Pin.OPEN_DRAIN)
+
+4️⃣ Pin Methods:
+----------------
+.value()      # Get or set digital value
+              # pin.value() -> returns 0 or 1
+              # pin.value(1) -> set HIGH
+              # pin.value(0) -> set LOW
+.on()         # Shortcut to set pin HIGH
+.off()        # Shortcut to set pin LOW
+.toggle()     # Toggle pin state
+
+5️⃣ Pin Attributes:
+------------------
+.mode()       # Returns current mode (Pin.IN, Pin.OUT, etc.)
+.pull()       # Returns pull configuration (Pin.PULL_UP, Pin.PULL_DOWN, or None)
+.id()         # Returns pin number (GPIO)
+
+6️⃣ Examples:
+--------------
+
+# Read button and control LED
+from machine import Pin
+import time
+
+button = Pin(4, Pin.IN, Pin.PULL_UP)  # GPIO 4 as input with pull-up
+led = Pin(5, Pin.OUT)                 # GPIO 5 as output
+
+while True:
+    if button.value() == 0:  # button pressed
+        led.on()
+    else:
+        led.off()
+    time.sleep(0.01)
+
+# PWM Example (LED brightness / motor speed)
+from machine import PWM
+
+led_pwm = PWM(Pin(5))     # PWM on GPIO 5
+led_pwm.freq(1000)        # Frequency 1 kHz
+led_pwm.duty_u16(32768)   # Duty cycle 0-65535 (50% brightness)
