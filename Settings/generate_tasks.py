@@ -4,14 +4,20 @@ import json
 # ---------------------------
 # CONFIGURATION
 # ---------------------------
-USERNAME = os.getlogin()  # automatically detect Windows username
-COM_PORT = "COM6"         # change if needed
-
+USERNAME = os.getlogin()  # automatically detect Windows username  !!!
+COM_PORT = "COM6"         # change if needed !!!
 # ESP32 project folder
-ESP32_PROJECT = r"E:\ESP32D"
+ESP32_PROJECT = r"C:\projects1\Piano" #chngge if diffrant!!!
+
+
+
 
 # Path to mpremote.exe
 MPREMOTE_PATH = f"C:/Users/{USERNAME}/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe"
+
+
+
+
 
 # ---------------------------
 # CREATE TASKS.JSON FOR ESP32 UPLOAD
