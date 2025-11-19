@@ -1,11 +1,16 @@
 # pyright: reportMissingImports=false
+
 from machine import Pin
 import time                            # Sleep/timestamps
 import math                            # Misc math helpers (kept for completeness)
-import keyboard
+from machine import ADC, Pin
+
+adc = ADC(Pin(25))   # choose an analog-capable pin
+value = adc.read()   # returns 0–4095
 
 
-led = Pin(2, Pin.OUT)
-led.value(1)
-print(led.value())
+while True:
+    print(value)
+    time.sleep(0.5)
+
 

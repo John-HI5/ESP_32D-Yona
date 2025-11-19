@@ -1,15 +1,22 @@
+# pyright: reportMissingImports=false
+
 import sys
+import select
+from machine import Pin
 import time
 
-print("ESP32 ready. Waiting for input...")
-
+print("ESP32 ready.")
+led = Pin(2, Pin.OUT)
 while True:
-    line = sys.stdin.readline()  # receives data from PC
-    if not line:
-        continue
+    # Check if there's input waiting
+    if select.select([sys.stdin], [], [], 0)[0]:
+        line = sys.stdin.readline().strip()
+        led.toggle()
 
-    key = line.strip()
-    print("Received key:", key)
+        # TODO: handle keys here
+        # if line == "a": play_note(A4)  
 
-    # Example: play tones, trigger output, etc.
-    # For now just print it.
+    # ESP32 can do other things here:
+    # update screen, play sounds, blink LED, run game loop, etc.
+    # This loop NEVER blocks!
+    time.sleep(0.01)
