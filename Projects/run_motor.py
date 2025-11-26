@@ -10,7 +10,7 @@ while True:
     if BOTTOn_pin.value() == 1:
         IN1.toggle()
         time.sleep(0.3)
-
+    time.sleep(0.01)
 
 
 '''
