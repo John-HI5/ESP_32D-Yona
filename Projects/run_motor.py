@@ -10,15 +10,5 @@ while True:
     if BOTTOn_pin.value() == 1:
         IN1.toggle()
         time.sleep(0.3)
-
-
-
-'''
-
-
-# Forward full power (assuming ENA is hard-wired to +5V)
-IN1.value(1)
-IN2.value(0)
-
-print("Motor running forward at full power")
-'''
+        print("moving")
+    print(BOTTOn_pin.value())
