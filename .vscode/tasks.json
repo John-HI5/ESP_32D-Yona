@@ -7,7 +7,7 @@
       "command": "cmd",
       "args": [
         "/c",
-        "\"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 fs cp \"${file}\" :main.py && \"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 reset && \"C:/Users/Jonathan/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 repl"
+        "\"C:/Users/jonat/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 fs cp \"${file}\" :main.py && \"C:/Users/jonat/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 reset && \"C:/Users/jonat/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0/LocalCache/local-packages/Python311/Scripts/mpremote.exe\" connect COM6 repl"
       ],
       "presentation": {
         "reveal": "always",
