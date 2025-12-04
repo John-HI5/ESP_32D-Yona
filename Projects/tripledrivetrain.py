@@ -23,7 +23,7 @@ def change_motor(power, direction):
         IN1.duty(duty)
 
     elif direction == 1:    # right
-        
+
         IN2.value(1)
         IN1.duty(duty)
 
