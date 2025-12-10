@@ -23,13 +23,16 @@ def Tpwm(duration, Hz, percent):
         IN2.value(0)
         time.sleep_us(off_time)
 x=1.0
-for i in range(8):
-    x=x-0.1
+for i in range(12):
+    print("pwm on ", x*100, "%")
     Tpwm(2, 20_000, x)
     time.sleep(0.4)
+    x=x-0.05
+    print("stopped")
 
 
 
+#work untill x>40 - -maybe 45
 '''
 from machine import Pin
 import time
