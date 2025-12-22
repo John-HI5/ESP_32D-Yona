@@ -1,19 +1,37 @@
 # pyright: reportMissingImports=false
-#from machine import Pin, PWM
+from machine import Pin, ADC
 import time
 import math
 #from PWM_func.py import Tpwm
-v = 100
-def input_stick (pin1, pin2): #needs to normalize the stick values and return x,y
-    print("make me")
 
 
-    x = 110
-    y = 30
-    # v = 100  #v = ((y**2) + (x**2))** 0.5      wtf why did i do that
 
-    print("v is ", v)
-    return (x,y)
+
+# החיבורים שלך
+vrx = ADC(Pin(14))   # X
+vry = ADC(Pin(13))   # Y
+sw  = Pin(27, Pin.IN, Pin.PULL_UP)
+
+vrx.atten(ADC.ATTN_11DB)
+vry.atten(ADC.ATTN_11DB)
+
+def findnum():
+    numx = vrx.read()   # 0 .. 4095
+    numy = vry.read()   # 0 .. 4095
+    return numx, numy
+
+def input_stick(numx, numy):
+    x = vrx.read()   # 0 .. 4095
+    y = vry.read()   # 0 .. 4095
+
+    print (x)
+    print (y)
+    x = x-(4095/2) -numx
+    y = y-(4095/2) - numy
+    return x, y
+
+
+
 
 
 
@@ -55,5 +73,8 @@ def playall ():
     print (cc)
     return cc
 
-
-playall()
+numx = findnum()
+numy = findnum()
+while True:
+    time.sleep(1)
+    print (input_stick(numx, numy))

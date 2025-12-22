@@ -1,22 +1,23 @@
 # pyright: reportMissingImports=false
-
-import sys
-import select
-from machine import Pin
+from machine import Pin, ADC
 import time
 
-print("ESP32 ready.")
-led = Pin(2, Pin.OUT)
+# Joystick connections
+vrx = ADC(Pin(39))   # VN → X-axis
+vry = ADC(Pin(36))   # VP → Y-axis
+sw  = Pin(27, Pin.IN, Pin.PULL_UP)  # Button
+
+# Set full ADC range
+vrx.atten(ADC.ATTN_11DB)
+vry.atten(ADC.ATTN_11DB)
+
+def input_stick():
+    x = vrx.read()   # 0 .. 4095
+    y = vry.read()   # 0 .. 4095
+    return x, y
+
+# Main loop
 while True:
-    # Check if there's input waiting
-    if select.select([sys.stdin], [], [], 0)[0]:
-        line = sys.stdin.readline().strip()
-        led.toggle()
-
-        # TODO: handle keys here
-        # if line == "a": play_note(A4)  
-
-    # ESP32 can do other things here:
-    # update screen, play sounds, blink LED, run game loop, etc.
-    # This loop NEVER blocks!
-    time.sleep(0.01)
+    time.sleep(1)
+    x, y = input_stick()
+    print(x, y)
