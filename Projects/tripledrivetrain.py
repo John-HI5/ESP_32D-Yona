@@ -5,42 +5,47 @@ import math
 #from PWM_func.py import Tpwm
 
 
+# Joystick connections
+vrx = ADC(Pin(39))   # VN → X-axis
+vry = ADC(Pin(36))   # VP → Y-axis
+sw  = Pin(27, Pin.IN, Pin.PULL_UP)  # Button
 
-
-# החיבורים שלך
-vrx = ADC(Pin(14))   # X
-vry = ADC(Pin(13))   # Y
-sw  = Pin(27, Pin.IN, Pin.PULL_UP)
-
+# Set full ADC range
 vrx.atten(ADC.ATTN_11DB)
 vry.atten(ADC.ATTN_11DB)
 
-def findnum():
-    numx = vrx.read()   # 0 .. 4095
-    numy = vry.read()   # 0 .. 4095
-    return numx, numy
 
-def input_stick(numx, numy):
-    x = vrx.read()   # 0 .. 4095
-    y = vry.read()   # 0 .. 4095
+def stickCalib():
+    print("dont tag, calibration!")
+    centerx = vrx.read()
+    centery = vry.read()
+    print("DONE!")
+    return centerx, centery
 
-    print (x)
-    print (y)
-    x = x-(4095/2) -numx
-    y = y-(4095/2) - numy
+
+# x, y = input_stick()
+'''
+# Main loop
+while True:
+    time.sleep(1)
+    x, y = input_stick()
+    print(x, y)
+'''
+
+def input_stick(centerx, centery):
+    x = vrx.read() - centerx # 0 .. 4095
+    y = vry.read() - centery  # 0 .. 4095
     return x, y
 
 
 
-
-
-
-def calc_alpha (X, Y, V): #calc M with x and y and then the alpha 
+def calc_alpha (X, Y): #calc M with x and y and then the alpha 
     m = Y / X
     print("m is ", m)
     alpha = math.degrees(math.atan(m)) #tan in D for m to find alpha
     print("alpha is ", alpha)
-    return alpha , V
+    return alpha
+    #needs to calc V also
 
 def motors_power (alpha):
     single_motor = 0
@@ -63,18 +68,21 @@ def q (alpha, V): #returns q
     print(q)
     return q
 
+
+
 def playall ():
-    Xx, Yy, Vv = input_stick (1, 2)
-    print("finished aa")
+    cenx , ceny = stickCalib()
+    print("finished stickCalib")
+    Xx, Yy= input_stick (cenx, ceny)
+    print("finished input_stick")
     alpha_value, v_value = calc_alpha(Xx, Yy, Vv)
-    print("finished bb")
+    print("finished calc_alpha")
     cc = q(alpha_value, v_value)
-    print("finished cc")
+    print("finished q")
     print (cc)
     return cc
 
-numx = findnum()
-numy = findnum()
+
 while True:
     time.sleep(1)
-    print (input_stick(numx, numy))
+    print (playall())

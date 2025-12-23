@@ -3,8 +3,8 @@ from machine import Pin, ADC
 import time
 
 # Joystick connections
-vrx = ADC(Pin(39))   # VN → X-axis
-vry = ADC(Pin(36))   # VP → Y-axis
+vrx = ADC(Pin(35))   # VN → X-axis
+vry = ADC(Pin(34))   # VP → Y-axis
 sw  = Pin(27, Pin.IN, Pin.PULL_UP)  # Button
 
 # Set full ADC range
