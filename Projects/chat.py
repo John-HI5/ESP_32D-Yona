@@ -14,13 +14,38 @@ vry.atten(ADC.ATTN_11DB)
 # =========================
 # MOTORS
 # =========================
-# Motor 1
-IN1 = Pin(18, Pin.OUT)  # direction
-PWM1 = PWM(Pin(19), freq=20000, duty=0)  # PWM pin
 
-# Motor 2
-IN2 = Pin(23, Pin.OUT)  # direction
-PWM2 = PWM(Pin(22), freq=20000, duty=0)  # PWM pin
+# Motor A
+A_motor1 = Pin(32, Pin.OUT)      # direction
+A_PWM_motor2 = PWM(Pin(33), freq=20000, duty=0)  # PWM
+
+# Motor B
+B_motor1 = Pin(27, Pin.OUT)      # direction
+B_PWM_motor2 = PWM(Pin(14), freq=20000, duty=0)  # PWM
+
+# Motor C
+C_motor1 = Pin(26, Pin.OUT)      # direction
+C_PWM_motor2 = PWM(Pin(25), freq=20000, duty=0)  # PWM
+
+# =========================
+# run motor functions
+# =========================
+
+def runmotor(motor, WithOrAgains, precent):
+    motor_pin1 = motor + "_motor1"
+    motor_pin2_pwm = motor + "_PWM_motor2"
+    
+    '''
+    motor_pin1.value(1)        # set direction
+    A_PWM_motor2.duty(0)   # 50% speed
+    time.sleep(5)             # run for 5 seconds
+    '''
+
+    
+
+
+    
+
 
 # =========================
 # CONSTANTS
@@ -80,6 +105,8 @@ def drive_motor(value, direction_pin, pwm):
 # =========================
 cx, cy = stickCalib()
 
+
+'''
 while True:
     x, y = read_stick(cx, cy)
     print  (x,y)
@@ -91,3 +118,11 @@ while True:
 
     print(f"X:{x} Y:{y}")
     time.sleep(0.01)
+'''
+# Set direction forward
+A_motor1.value(1)
+
+# Set PWM duty to 50% (ESP32 duty range 0–1023)
+A_PWM_motor2.duty(512)
+
+#A_PWM_motor2.duty(0)
