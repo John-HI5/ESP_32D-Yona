@@ -105,6 +105,7 @@ def drive_motor(value, direction_pin, pwm):
 # =========================
 cx, cy = stickCalib()
 
+print(23)
 
 '''
 while True:
