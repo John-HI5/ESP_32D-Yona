@@ -16,35 +16,25 @@ vry.atten(ADC.ATTN_11DB)
 # =========================
 
 # Motor A
-A_motor1 = Pin(32, Pin.OUT)      # direction
+A_motor1 = Pin(32, Pin.OUT)      # direction WHEN ON RIGHT
 A_PWM_motor2 = PWM(Pin(33), freq=20000, duty=0)  # PWM
 
 # Motor B
-B_motor1 = Pin(27, Pin.OUT)      # direction
+B_motor1 = Pin(27, Pin.OUT)      # direction WHEN ON RIGHT
 B_PWM_motor2 = PWM(Pin(14), freq=20000, duty=0)  # PWM
 
 # Motor C
-C_motor1 = Pin(26, Pin.OUT)      # direction
+C_motor1 = Pin(26, Pin.OUT)      # direction WHEN ON RIGHT
 C_PWM_motor2 = PWM(Pin(25), freq=20000, duty=0)  # PWM
 
 # =========================
-# run motor functions
+# dic for motors
 # =========================
-
-def runmotor(motor, WithOrAgains, precent):
-    motor_pin1 = motor + "_motor1"
-    motor_pin2_pwm = motor + "_PWM_motor2"
-    
-    '''
-    motor_pin1.value(1)        # set direction
-    A_PWM_motor2.duty(0)   # 50% speed
-    time.sleep(5)             # run for 5 seconds
-    '''
-
-    
-
-
-    
+motors = {
+    "A": {"dir": A_motor1, "pwm": A_PWM_motor2},
+    "B": {"dir": B_motor1, "pwm": B_PWM_motor2},
+    "C": {"dir": C_motor1, "pwm": C_PWM_motor2},
+}
 
 
 # =========================
@@ -81,31 +71,59 @@ def read_stick(cx, cy):
 # =========================
 # CALCULATE SPEED
 # =========================
-def calc_speed(value):
+def calc_cords(value):
     """Convert joystick value to 0–1023 PWM duty"""
     speed = max(0, abs(value) - DEADZONE) / (ADC_MAX - DEADZONE)
     return min(int(speed * 1023), 1023)
 
-# =========================
-# DRIVE MOTOR
-# =========================
-def drive_motor(value, direction_pin, pwm):
-    if value > 0:
-        direction_pin.value(1)
-    elif value < 0:
-        direction_pin.value(0)
-    else:
-        pwm.duty(0)
-        return
 
-    pwm.duty(calc_speed(value))
+# =========================
+# run motor functions
+# =========================
+def run_motor(motor, WithOrAgainst, P): #(A, B, C), (0, 1), (0.0 - 100).
+    m = motors[motor]
+    # direction
+    m["dir"].value(WithOrAgainst)
+    # PWM (0–1023 on ESP32)
+    duty = int((P / 100) * 1023)
+    m["pwm"].duty(duty)
 
+    '''
+    motor_pin1.value(1)        # set direction
+    A_PWM_motor2.duty(0)   # 50% speed
+    time.sleep(5)             # run for 5 seconds
+    '''
+
+# =========================
+# run motor functions
+# =========================
+def power_des (x, y, v):
+    m = y / x
+    Y = m*x
+    X = Y*m
+
+    import math
+    angle_rad = math.atan2(y, x)     
+    angle_deg = math.degrees(angle_rad) 
+
+    print(angle_deg)
+
+
+    q = V * math.cos(math.radians(alpha))
+    if (x > 0 and y > 0):
+        if (y > x):
+
+
+
+
+#q = V * math.cos(math.radians(alpha))
 # =========================
 # MAIN LOOP
 # =========================
-cx, cy = stickCalib()
 
-print(23)
+cx, cy = stickCalib()
+x , y = read_stick(cx, cy)
+
 
 '''
 while True:
@@ -121,9 +139,9 @@ while True:
     time.sleep(0.01)
 '''
 # Set direction forward
-A_motor1.value(1)
+#A_motor1.value(1)
 
 # Set PWM duty to 50% (ESP32 duty range 0–1023)
-A_PWM_motor2.duty(512)
+#A_PWM_motor2.duty(512)
 
 #A_PWM_motor2.duty(0)

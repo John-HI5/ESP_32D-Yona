@@ -5,9 +5,9 @@ import json
 # CONFIGURATION
 # ---------------------------
 USERNAME = os.getlogin()  # automatically detect Windows username  !!!
-COM_PORT = "COM6"         # change if needed !!!
+COM_PORT = "COM3"         # change if needed !!!
 # ESP32 project folder
-ESP32_PROJECT = r"C:\projects1\Piano" #chngge if diffrant!!!
+ESP32_PROJECT = r"C:\projects1\ESP_32D_YONA" #chngge if diffrant!!!
 
 
 
