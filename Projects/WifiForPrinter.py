@@ -6,7 +6,7 @@ import esp
 esp.osdebug(None)
 
 AP_SSID = "ESP32_X1C_LAN"
-AP_PASSWORD = "BARAKSHELEFALLCAPS"
+AP_PASSWORD = "barakshelefallcaps"
 
 ap = network.WLAN(network.AP_IF)
 ap.active(True)
